@@ -1,5 +1,4 @@
-import { ProviderMyNearWallet, getConfiguration, Network, BrowserKeyStore } from '@nearjs/web'
-import { FunctionCall } from 'near-api-js/lib/transaction';
+import { ProviderMyNearWallet, getConfiguration, Network, BrowserKeyStore, FunctionCallPermission } from '@nearjs/web'
 import { useEffect, useState } from 'react';
 
 export const MyNearComponent = ({
@@ -33,7 +32,7 @@ export const MyNearComponent = ({
 
     const send = async () => {
         // we need construct action object to let blockchain know what transaction it shoul execute
-        const action = new FunctionCall(
+        const action = new FunctionCallPermission(
             'ft_transfer', // smart contract method name: transfer token
             { // arguments
                 receiver_id: receiver, // token receiver
