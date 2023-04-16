@@ -1,4 +1,4 @@
-import { ProviderMyNearWallet, getConfiguration, Network, BrowserKeyStore, FunctionCallPermission } from '@nearjs/web'
+import { ProviderMyNearWallet, getConfiguration, Network, BrowserKeyStore } from '@nearjs/web'
 import { useEffect, useState } from 'react';
 
 export const MyNearComponent = ({
@@ -14,10 +14,15 @@ export const MyNearComponent = ({
     // create Near provider. Specify that we use testnet environment and our browser key store
     const provider = new ProviderMyNearWallet(getConfiguration(Network.MAINNET, keyStore));
 
+
+
     // Connect user's wallet account to your frontend application
     useEffect(() => {
         (async () => {
             // Check if account already connected
+            const account = await nearConnection.account("example-account.testnet");
+            await account.getAccountDetails();
+            console.log("balance is ", await account.getAccountDetails());
             const accountConnected = await provider.listConnectedAccounts();
             if (accountConnected.length) {
                 return; // do not proceed if user already connected their account
